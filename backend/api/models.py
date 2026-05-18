@@ -101,3 +101,20 @@ class StoreSettings(models.Model):
 
     def __str__(self):
         return self.store_name
+
+
+class HeroBanner(models.Model):
+    title = models.CharField(max_length=200, blank=True)
+    subtitle = models.CharField(max_length=200, blank=True)
+    bg_image = models.ImageField(upload_to='banners/')
+    left_image = models.ImageField(upload_to='banners/', blank=True)
+    right_image = models.ImageField(upload_to='banners/', blank=True)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Hero Banner'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return self.title or f"Banner #{self.pk}"

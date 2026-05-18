@@ -4,8 +4,9 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from django.core.mail import send_mail
 from django.conf import settings
-from .models import Product, Order, Message, StoreSettings, ProductImage
-from .serializers import ProductSerializer, OrderSerializer, MessageSerializer, StoreSettingsSerializer
+from rest_framework.views import APIView
+from .models import Product, Order, Message, StoreSettings, ProductImage, HeroBanner
+from .serializers import ProductSerializer, OrderSerializer, MessageSerializer, StoreSettingsSerializer, HeroBannerSerializer
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
@@ -122,3 +123,15 @@ def dashboard_stats(request):
         'unread_messages': unread_messages,
         'pending_orders': pending_orders
     })
+
+
+class ActiveBannerView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        try:
+            banner = HeroBanner.objects.filter(is_active=True).latest('created_at')
+            serializer = HeroBannerSerializer(banner, context={'request': request})
+            return Response(serializer.data)
+        except HeroBanner.DoesNotExist:
+            return Response({}, status=200)

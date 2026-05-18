@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product, Order, Message, StoreSettings, ProductImage
+from .models import Product, Order, Message, StoreSettings, ProductImage, HeroBanner
 
 class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:
@@ -26,3 +26,12 @@ class StoreSettingsSerializer(serializers.ModelSerializer):
     class Meta:
         model = StoreSettings
         fields = '__all__'
+
+class HeroBannerSerializer(serializers.ModelSerializer):
+    bg_image = serializers.ImageField(use_url=True)
+    left_image = serializers.ImageField(use_url=True)
+    right_image = serializers.ImageField(use_url=True)
+
+    class Meta:
+        model = HeroBanner
+        fields = ['id', 'title', 'subtitle', 'bg_image', 'left_image', 'right_image', 'is_active']
