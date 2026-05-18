@@ -135,3 +135,12 @@ class ActiveBannerView(APIView):
             return Response(serializer.data)
         except HeroBanner.DoesNotExist:
             return Response({}, status=200)
+
+
+class HeroBannerManageViewSet(viewsets.ModelViewSet):
+    queryset = HeroBanner.objects.all()
+    serializer_class = HeroBannerSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_serializer_context(self):
+        return {'request': self.request}

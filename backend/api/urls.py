@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import ProductViewSet, OrderViewSet, MessageViewSet, StoreSettingsViewSet, dashboard_stats, register_user, ActiveBannerView
+from .views import ProductViewSet, OrderViewSet, MessageViewSet, StoreSettingsViewSet, dashboard_stats, register_user, ActiveBannerView, HeroBannerManageViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 router = DefaultRouter()
@@ -8,6 +8,7 @@ router.register(r'products', ProductViewSet)
 router.register(r'orders', OrderViewSet)
 router.register(r'messages', MessageViewSet)
 router.register(r'settings', StoreSettingsViewSet)
+router.register(r'hero-banner-manage', HeroBannerManageViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
