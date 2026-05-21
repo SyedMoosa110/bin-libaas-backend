@@ -81,6 +81,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CORS — allow Vite dev server
 CORS_ALLOWED_ORIGINS = [
     os.getenv('FRONTEND_URL', 'http://localhost:5173'),
+    'http://localhost:5174',
 ]
 CORS_ALLOW_CREDENTIALS = True
 
